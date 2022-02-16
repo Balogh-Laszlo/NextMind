@@ -10,6 +10,7 @@ public class NewController : MonoBehaviour
     private const string endURL = "/json/with/key/";
 
     public GameObject IFTTTkeyCanvas;
+    public GameObject Controller;
     void Start()
     {
         
@@ -18,6 +19,21 @@ public class NewController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void onNextPressed()
+    {
+        Debug.Log(key.Length);
+        if (key.Length<1)
+        {
+            Debug.Log("Insert the IFTTT key!");
+        }
+        else
+        {
+            IFTTTkeyCanvas.SetActive(false);
+            Controller.SetActive(true);
+        }
         
     }
 
