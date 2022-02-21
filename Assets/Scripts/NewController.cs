@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 public class NewController : MonoBehaviour
 {
     // Start is called before the first frame update
-    private static string key = "";
-    private const string baseURL = "https://maker.ifttt.com/trigger/";
-    private const string endURL = "/json/with/key/";
-    private int numberOfPages = 1;
+    public string key = "";
+    public string baseURL = "https://maker.ifttt.com/trigger/";
+    public string endURL = "/json/with/key/";
+    public int numberOfPages = 1;
     public List<Control> controls = new List<Control>();
+    public string controllerName;
 
     public GameObject IFTTTkeyCanvas;
     public GameObject Controller;
+    public GameObject NameYourController;
 
     
     public TMP_InputField ButtonName1;
@@ -30,6 +33,8 @@ public class NewController : MonoBehaviour
     public TMP_InputField CustomEvent3;
     public TMP_InputField CustomEvent4;
     public TMP_InputField CustomEvent5;
+
+    public TMP_InputField ControllerName;
 
     private List<TMP_InputField> buttonNames = new List<TMP_InputField>();
     private List<TMP_InputField> customEvents = new List<TMP_InputField>();
@@ -85,6 +90,9 @@ public class NewController : MonoBehaviour
     public void onSetupNextPressed()
     {
         saveButtonsData();
+        Controller.SetActive(false);
+        NameYourController.SetActive(true);
+        
     }
 
     private void saveButtonsData()
@@ -110,6 +118,15 @@ public class NewController : MonoBehaviour
         {
             buttonNames[i].text = "";
             customEvents[i].text = "";
+        }
+    }
+
+    public void onSavePressed()
+    {
+        if (ControllerName.text.Length > 1)
+        {
+            controllerName = ControllerName.text;
+            SceneManager.LoadScene(0);
         }
     }
     

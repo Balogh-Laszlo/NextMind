@@ -1,4 +1,4 @@
-
+[System.Serializable]
 public class Control {
     public Control(string controlName, string customEvent)
     {
