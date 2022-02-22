@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
-
+[RequireComponent(typeof(SaveScript))]
 public class NewController : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -38,6 +38,8 @@ public class NewController : MonoBehaviour
 
     private List<TMP_InputField> buttonNames = new List<TMP_InputField>();
     private List<TMP_InputField> customEvents = new List<TMP_InputField>();
+
+    public SaveScript saveScript;
     void Start()
     {
         buttonNames.Add(ButtonName1);
@@ -51,6 +53,8 @@ public class NewController : MonoBehaviour
         customEvents.Add(CustomEvent3);
         customEvents.Add(CustomEvent4);
         customEvents.Add(CustomEvent5);
+
+        saveScript = GetComponent<SaveScript>();
     }
 
     // Update is called once per frame
@@ -123,10 +127,12 @@ public class NewController : MonoBehaviour
 
     public void onSavePressed()
     {
-        if (ControllerName.text.Length > 1)
+        if (ControllerName.text.Length >= 1)
         {
             controllerName = ControllerName.text;
+            saveScript.SaveData();
             SceneManager.LoadScene(0);
+            
         }
     }
     

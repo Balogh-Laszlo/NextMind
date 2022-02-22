@@ -26,4 +26,9 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(11);
     }
+
+    public void selectController()
+    {
+        SceneManager.LoadScene(12);
+    }
 }

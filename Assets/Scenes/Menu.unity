@@ -695,6 +695,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: btnSelectController
       objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 851848752}
+    - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: selectController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Menu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772973, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

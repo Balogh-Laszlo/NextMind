@@ -350,7 +350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &32605179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3534,18 +3534,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2058690446}
-        m_TargetAssemblyTypeName: SaveScript, Assembly-CSharp
-        m_MethodName: SaveData
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 2058690444}
         m_TargetAssemblyTypeName: NewController, Assembly-CSharp
         m_MethodName: onSavePressed
@@ -4785,7 +4773,8 @@ MonoBehaviour:
   CustomEvent3: {fileID: 520444543}
   CustomEvent4: {fileID: 705310026}
   CustomEvent5: {fileID: 1736236663}
-  ControllerName: {fileID: 0}
+  ControllerName: {fileID: 254113415}
+  saveScript: {fileID: 0}
 --- !u!225 &2058690445
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4961,7 +4950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2093441349
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,14 +14,14 @@ public class SaveScript : MonoBehaviour
     void Start()
     {
         newController = GetComponent<NewController>();
-        savePath = Application.persistentDataPath + "/Controllers.save";
+        savePath = Application.persistentDataPath + "/myControllers2.save";
     }
 
     public void SaveData()
     {
         var controller = new Controller()
         {
-            controllerName = newController.name,
+            controllerName = newController.controllerName,
             controls = newController.controls,
             IFTTTKey = newController.key,
             numberOfPages = newController.numberOfPages
@@ -52,19 +52,5 @@ public class SaveScript : MonoBehaviour
             }
         }
         
-    }
-
-    public void LoadData()
-    {
-        if (File.Exists(savePath))
-        {
-            Save save;
-            var binaryFormatter = new BinaryFormatter();
-            using (var fileStream = File.Open(savePath, FileMode.Open))
-            {
-                save = (Save)binaryFormatter.Deserialize(fileStream);
-            }
-            Debug.Log(save.controllers.Count);
-        }
     }
 }

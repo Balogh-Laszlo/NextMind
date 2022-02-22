@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/New controller.unity
     guid: 36f56cb33654db841919072ba8bb135b
+  - enabled: 1
+    path: Assets/Scenes/Select Controller.unity
+    guid: e8e756a43d40094418eb3ce70710cf3a
   m_configObjects: {}
