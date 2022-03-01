@@ -487,9 +487,17 @@ PrefabInstance:
       propertyPath: m_text
       value: New controller
       objectReference: {fileID: 0}
+    - target: {fileID: 7881075827831812155, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_Name
       value: btnNewController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -691,9 +699,17 @@ PrefabInstance:
       propertyPath: m_text
       value: Select controller
       objectReference: {fileID: 0}
+    - target: {fileID: 7881075827831812155, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_Name
       value: btnSelectController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -882,9 +898,17 @@ PrefabInstance:
       propertyPath: m_text
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 7881075827831812155, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_Name
       value: btnQuit
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772973, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_Pivot.x
@@ -1143,9 +1167,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 851848751}
     m_Modifications:
+    - target: {fileID: 7881075827831812155, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_Name
       value: btnCalibrate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881075828686772962, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7881075828686772972, guid: 520bc35db1f9bb14b99f9fce990aef00, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

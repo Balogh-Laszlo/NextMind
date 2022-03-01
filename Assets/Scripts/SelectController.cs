@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
+using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // [RequireComponent(typeof(LoadScript))]
@@ -12,12 +14,14 @@ public class SelectController : MonoBehaviour
 {
     // Start is called before the first frame update
     public List<Controller> controllers = null;
+    private List<Controller> controllersOnScreen;
+    private int currentPage = 0;
     // public LoadScript loader;
-    public Text text;
-    public TMP_Dropdown options;
     private List<string> controllerNames;
     public string loadPath;
-
+    public GameObject nextPageMindButton;
+    
+    
     private void Awake()
     {
         Debug.Log("AWAKE");
@@ -30,6 +34,7 @@ public class SelectController : MonoBehaviour
 
     void Start()
     {
+        controllersOnScreen = new List<Controller>();
         Debug.Log("START");
         Debug.Log(controllers.Count);
         controllerNames = new List<string>();
@@ -38,30 +43,27 @@ public class SelectController : MonoBehaviour
             controllerNames.Add(controllers[i].controllerName);
         }
 
-        if (options != null)
+        if (controllers.Count>5)
         {
-            options.ClearOptions();
-            options.AddOptions(controllerNames);
+            nextPageMindButton.SetActive(true);
+            for (int i = 0; i < 5; ++i)
+            {
+                controllersOnScreen.Add(controllers[i]);
+            }
         }
-        
-        
+        else
+        {
+            nextPageMindButton.SetActive(false);
+            controllersOnScreen = controllers;
+        }
+        Debug.Log("Controllers on screen: "+controllersOnScreen.Count);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    private bool isLoaded()
-    {
-        if (controllers != null)
-        {
-            return true;
-        }
-
-        return false;
-
     }
     public void LoadData()
     {
@@ -75,6 +77,30 @@ public class SelectController : MonoBehaviour
             }
 
             controllers = save.controllers;
+        }
+    }
+
+    public void onBackPressed()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void nextPage()
+    {
+        currentPage += 1;
+        controllersOnScreen.Clear();
+        int temp = currentPage * 5;
+        for (int i = temp; i < temp+5; i++)
+        {
+            if (i < controllers.Count)
+            {
+                controllersOnScreen.Add(controllers[i]);
+            }
+            else
+            {
+                break;
+            }
+            
         }
     }
 }
