@@ -20,8 +20,15 @@ public class SelectController : MonoBehaviour
     private List<string> controllerNames;
     public string loadPath;
     public GameObject nextPageMindButton;
-    
-    
+    public GameObject prevPageButton;
+    public GameObject button1;
+    public GameObject button2;
+    public GameObject button3;
+    public GameObject button4;
+    public GameObject button5;
+    private List<GameObject> buttons;
+
+
     private void Awake()
     {
         Debug.Log("AWAKE");
@@ -35,6 +42,7 @@ public class SelectController : MonoBehaviour
     void Start()
     {
         controllersOnScreen = new List<Controller>();
+        buttons = new List<GameObject>() {button1, button2, button3, button4, button5};
         Debug.Log("START");
         Debug.Log(controllers.Count);
         controllerNames = new List<string>();
@@ -49,12 +57,31 @@ public class SelectController : MonoBehaviour
             for (int i = 0; i < 5; ++i)
             {
                 controllersOnScreen.Add(controllers[i]);
+                TMP_Text temp = buttons[i].GetComponentInChildren<TMP_Text>();
+                if (temp != null)
+                {
+                    temp.text = controllers[i].controllerName;
+                }
             }
         }
         else
         {
             nextPageMindButton.SetActive(false);
             controllersOnScreen = controllers;
+            for (int i = 0; i < controllers.Count; i++)
+            {
+                
+                TMP_Text temp = buttons[i].GetComponentInChildren<TMP_Text>();
+                if (temp != null)
+                {
+                    temp.text = controllers[i].controllerName;
+                }
+            }
+
+            for (int i = controllers.Count; i < 5; ++i)
+            {
+                buttons[i].SetActive(false);
+            }
         }
         Debug.Log("Controllers on screen: "+controllersOnScreen.Count);
 
@@ -95,10 +122,15 @@ public class SelectController : MonoBehaviour
             if (i < controllers.Count)
             {
                 controllersOnScreen.Add(controllers[i]);
+                TMP_Text text = buttons[i].GetComponentInChildren<TMP_Text>();
+                if (text != null)
+                {
+                    text.text = controllers[i].controllerName;
+                }
             }
             else
             {
-                break;
+                buttons[i].SetActive(false);
             }
             
         }
