@@ -16,6 +16,8 @@ public class SelectController : MonoBehaviour
     public List<Controller> controllers = null;
     private List<Controller> controllersOnScreen;
     private int currentPage = 0;
+
+    private Controller currentController;
     // public LoadScript loader;
     private List<string> controllerNames;
     public string loadPath;
@@ -27,6 +29,10 @@ public class SelectController : MonoBehaviour
     public GameObject button4;
     public GameObject button5;
     private List<GameObject> buttons;
+    public GameObject canvas;
+    public GameObject controllerCanvas;
+    public TMP_Text controllerNameText;
+    
 
 
     private void Awake()
@@ -84,6 +90,10 @@ public class SelectController : MonoBehaviour
             }
         }
         Debug.Log("Controllers on screen: "+controllersOnScreen.Count);
+        if (currentPage == 0)
+        {
+            prevPageButton.SetActive(false);
+        }
 
     }
 
@@ -115,6 +125,14 @@ public class SelectController : MonoBehaviour
     public void nextPage()
     {
         currentPage += 1;
+        if (prevPageButton.activeSelf == false)
+        {
+            prevPageButton.SetActive(true);
+        }
+        if (currentPage > controllers.Count / 5)
+        {
+            nextPageMindButton.SetActive(false);
+        }
         controllersOnScreen.Clear();
         int temp = currentPage * 5;
         for (int i = temp; i < temp+5; i++)
@@ -135,4 +153,80 @@ public class SelectController : MonoBehaviour
             
         }
     }
+
+    public void prevPage()
+    {
+        currentPage -= 1;
+        if (nextPageMindButton.activeSelf == false)
+        {
+            nextPageMindButton.SetActive(true);
+        }
+
+        if (currentPage == 0)
+        {
+            prevPageButton.SetActive(false);
+        }
+        controllersOnScreen.Clear();
+        int temp = currentPage * 5;
+        for (int i = temp; i < temp+5; i++)
+        {
+            if (i < controllers.Count)
+            {
+                controllersOnScreen.Add(controllers[i]);
+                TMP_Text text = buttons[i].GetComponentInChildren<TMP_Text>();
+                if (text != null)
+                {
+                    text.text = controllers[i].controllerName;
+                }
+            }
+            else
+            {
+                buttons[i].SetActive(false);
+            }
+            
+        }
+    }
+
+    public void onButton1Pressed()
+    {
+        Debug.Log(controllers[currentPage+0].controllerName);
+        currentController = controllers[currentPage];
+        onControllerSelectedCommon(currentController);
+    }
+
+    public void onButton2Pressed()
+    {
+        Debug.Log(controllers[currentPage+1].controllerName);
+        currentController = controllers[currentPage + 1];
+        onControllerSelectedCommon(currentController);
+    }
+
+    public void onButton3Pressed()
+    {
+        Debug.Log(controllers[currentPage+2].controllerName);
+        currentController = controllers[currentPage + 2];
+        onControllerSelectedCommon(currentController);
+    }
+
+    public void onButton4Pressed()
+    {
+        Debug.Log(controllers[currentPage+3].controllerName);
+        currentController = controllers[currentPage + 3];
+        onControllerSelectedCommon(currentController);
+    }
+
+    public void onButton5Pressed()
+    {
+        Debug.Log(controllers[currentPage+4].controllerName);
+        currentController = controllers[currentPage + 4];
+        onControllerSelectedCommon(currentController);
+    }
+
+    private void onControllerSelectedCommon(Controller controller)
+    {
+        canvas.SetActive(false);
+        controllerCanvas.SetActive(true);
+        controllerNameText.text = controller.controllerName;
+    }
+    
 }
