@@ -17,7 +17,7 @@ public class SelectController : MonoBehaviour
     private List<Controller> controllersOnScreen;
     private int currentPage = 0;
 
-    private Controller currentController;
+    public static Controller currentController;
     // public LoadScript loader;
     private List<string> controllerNames;
     public string loadPath;
@@ -29,10 +29,7 @@ public class SelectController : MonoBehaviour
     public GameObject button4;
     public GameObject button5;
     private List<GameObject> buttons;
-    public GameObject canvas;
-    public GameObject controllerCanvas;
-    public TMP_Text controllerNameText;
-    
+
 
 
     private void Awake()
@@ -224,9 +221,7 @@ public class SelectController : MonoBehaviour
 
     private void onControllerSelectedCommon(Controller controller)
     {
-        canvas.SetActive(false);
-        controllerCanvas.SetActive(true);
-        controllerNameText.text = controller.controllerName;
+        SceneManager.LoadScene(13);
     }
     
 }
