@@ -588,9 +588,7 @@ MonoBehaviour:
   button3: {fileID: 1089513813}
   button4: {fileID: 949434230}
   button5: {fileID: 1871860779}
-  canvas: {fileID: 1608304429}
-  controllerCanvas: {fileID: 0}
-  controllerNameText: {fileID: 0}
+  neuroManager: {fileID: 266950716}
 --- !u!1 &661160534
 GameObject:
   m_ObjectHideFlags: 0
