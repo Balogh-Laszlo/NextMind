@@ -129,18 +129,23 @@ public class SelectController : MonoBehaviour
         {
             prevPageButton.SetActive(true);
         }
-        if (currentPage > controllers.Count / 5)
+        if (currentPage >= controllers.Count / 5)
         {
             nextPageMindButton.SetActive(false);
         }
         controllersOnScreen.Clear();
         int temp = currentPage * 5;
+        int buttonIndex = 0;
         for (int i = temp; i < temp+5; i++)
         {
             if (i < controllers.Count)
             {
+                if (buttons[buttonIndex].activeSelf == false)
+                {
+                    buttons[buttonIndex].SetActive(true);
+                }
                 controllersOnScreen.Add(controllers[i]);
-                TMP_Text text = buttons[i].GetComponentInChildren<TMP_Text>();
+                TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
                 if (text != null)
                 {
                     text.text = controllers[i].controllerName;
@@ -148,9 +153,11 @@ public class SelectController : MonoBehaviour
             }
             else
             {
-                buttons[i].SetActive(false);
+                buttons[buttonIndex].SetActive(false);
             }
-            
+
+            buttonIndex++;
+
         }
     }
 
@@ -168,12 +175,17 @@ public class SelectController : MonoBehaviour
         }
         controllersOnScreen.Clear();
         int temp = currentPage * 5;
+        int buttonIndex = 0;
         for (int i = temp; i < temp+5; i++)
         {
             if (i < controllers.Count)
             {
                 controllersOnScreen.Add(controllers[i]);
-                TMP_Text text = buttons[i].GetComponentInChildren<TMP_Text>();
+                if (buttons[buttonIndex].activeSelf == false)
+                {
+                    buttons[buttonIndex].SetActive(true);
+                }
+                TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
                 if (text != null)
                 {
                     text.text = controllers[i].controllerName;
@@ -181,9 +193,11 @@ public class SelectController : MonoBehaviour
             }
             else
             {
-                buttons[i].SetActive(false);
+                buttons[buttonIndex].SetActive(false);
             }
-            
+
+            buttonIndex++;
+
         }
     }
 

@@ -11,7 +11,6 @@ public class RemoteControl : MonoBehaviour
 {
     public TMP_Text name;
     public Controller controller;
-
     public GameObject button1;
     public GameObject button2;
     public GameObject button3;
@@ -41,6 +40,7 @@ public class RemoteControl : MonoBehaviour
             buttons.Add(button5);
             controlsOnScreen = new List<Control>();
             int temp = currentPage * 5;
+            int buttonIndex = 0;
             prevPage.SetActive(false);
             if (controller.numberOfPages <= 1)
             {
@@ -50,7 +50,7 @@ public class RemoteControl : MonoBehaviour
             {
                 if (i < controller.controls.Count)
                 {
-                    TMP_Text text = buttons[i].GetComponentInChildren<TMP_Text>();
+                    TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
                     if (text != null)
                     {
                         if (controller.controls[i] != null && controller.controls[i].ControlName != null)
@@ -60,7 +60,7 @@ public class RemoteControl : MonoBehaviour
                         }
                         else
                         {
-                            buttons[i].SetActive(false);
+                            buttons[buttonIndex].SetActive(false);
                             controlsOnScreen.Add(null);
                         }
                         
@@ -69,16 +69,43 @@ public class RemoteControl : MonoBehaviour
                 else
                 {
                     
-                    buttons[i].SetActive(false);
+                    buttons[buttonIndex].SetActive(false);
                 }
+
+                buttonIndex++;
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void onNextPressed()
     {
+        currentPage++;
+        if (currentPage == controller.numberOfPages-1)
+        {
+            nextPage.SetActive(false);
+        }
+
+        if (prevPage.activeSelf == false)
+        {
+            prevPage.SetActive(true);
+        }
+        showButtons();
         
+    }
+
+    public void onPrevPressed()
+    {
+        currentPage--;
+        if (currentPage == 0)
+        {
+            prevPage.SetActive(false);
+        }
+
+        if (nextPage.activeSelf == false)
+        {
+            nextPage.SetActive(true);
+        }
+        showButtons();
     }
     
     public void onBackPressed()
@@ -92,32 +119,63 @@ public class RemoteControl : MonoBehaviour
 
     public void button1Pressed()
     {
-        string url = "https://maker.ifttt.com/trigger/" + controlsOnScreen[currentPage * 5].CustomEvent +
-                     "/json/with/key/" + controller.IFTTTKey;
-        Utils.ping(url);
+        Utils.ping(controlsOnScreen[currentPage * 5].CustomEvent,controller.IFTTTKey);
     }
     public void button2Pressed()
     {
-        string url = "https://maker.ifttt.com/trigger/" + controlsOnScreen[currentPage * 5+1].CustomEvent +
-                     "/json/with/key/" + controller.IFTTTKey;
-        Utils.ping(url);
+        Utils.ping(controlsOnScreen[currentPage * 5+1].CustomEvent,controller.IFTTTKey);
     }
     public void button3Pressed()
     {
-        string url = "https://maker.ifttt.com/trigger/" + controlsOnScreen[currentPage * 5+2].CustomEvent +
-                     "/json/with/key/" + controller.IFTTTKey;
-        Utils.ping(url);
+        Utils.ping(controlsOnScreen[currentPage * 5+2].CustomEvent,controller.IFTTTKey);
     }
     public void button4Pressed()
     {
-        string url = "https://maker.ifttt.com/trigger/" + controlsOnScreen[currentPage * 5+3].CustomEvent +
-                     "/json/with/key/" + controller.IFTTTKey;
-        Utils.ping(url);
+        Utils.ping(controlsOnScreen[currentPage * 5+3].CustomEvent,controller.IFTTTKey);
     }
     public void button5Pressed()
     {
-        string url = "https://maker.ifttt.com/trigger/" + controlsOnScreen[currentPage * 5+4].CustomEvent +
-                     "/json/with/key/" + controller.IFTTTKey;
-        Utils.ping(url);
+        Utils.ping(controlsOnScreen[currentPage * 5+4].CustomEvent,controller.IFTTTKey);
+    }
+
+    private void showButtons()
+    {
+        int temp = currentPage * 5;
+        int buttonIndex = 0;
+        controlsOnScreen.Clear();
+        for (int i = temp; i < temp+5; i++)
+        {
+            if (i < controller.controls.Count)
+            {
+                
+                TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
+                if (text != null)
+                {
+                    if (controller.controls[i] != null && controller.controls[i].ControlName != null)
+                    {
+                        if (buttons[buttonIndex].activeSelf == false)
+                        {
+                            buttons[buttonIndex].SetActive(true);
+                        }
+                        text.text = controller.controls[i].ControlName;
+                        controlsOnScreen.Add(controller.controls[i]);
+                    }
+                    else
+                    {
+                        buttons[buttonIndex].SetActive(false);
+                        controlsOnScreen.Add(null);
+                    }
+                        
+                }
+            }
+            else
+            {
+                    
+                buttons[buttonIndex].SetActive(false);
+            }
+
+            buttonIndex++;
+        
+        }
     }
 }
