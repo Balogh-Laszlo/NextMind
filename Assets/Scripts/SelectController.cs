@@ -119,7 +119,12 @@ public class SelectController : MonoBehaviour
 
     public void onBackPressed()
     {
+        foreach (var device in neuroManager.Devices)
+        {
+            neuroManager.DisconnectDevice(device);
+        }
         SceneManager.LoadScene(0);
+        
     }
 
     public void nextPage()
@@ -203,36 +208,36 @@ public class SelectController : MonoBehaviour
 
     public void onButton1Pressed()
     {
-        Debug.Log(controllers[currentPage+0].controllerName);
-        currentController = controllers[currentPage];
+        Debug.Log(controllers[currentPage*5+0].controllerName);
+        currentController = controllers[currentPage*5];
         onControllerSelectedCommon(currentController);
     }
 
     public void onButton2Pressed()
     {
-        Debug.Log(controllers[currentPage+1].controllerName);
-        currentController = controllers[currentPage + 1];
+        Debug.Log(controllers[currentPage*5+1].controllerName);
+        currentController = controllers[currentPage*5 + 1];
         onControllerSelectedCommon(currentController);
     }
 
     public void onButton3Pressed()
     {
-        Debug.Log(controllers[currentPage+2].controllerName);
-        currentController = controllers[currentPage + 2];
+        Debug.Log(controllers[currentPage*5+2].controllerName);
+        currentController = controllers[currentPage*5 + 2];
         onControllerSelectedCommon(currentController);
     }
 
     public void onButton4Pressed()
     {
-        Debug.Log(controllers[currentPage+3].controllerName);
-        currentController = controllers[currentPage + 3];
+        Debug.Log(controllers[currentPage*5+3].controllerName);
+        currentController = controllers[currentPage*5 + 3];
         onControllerSelectedCommon(currentController);
     }
 
     public void onButton5Pressed()
     {
-        Debug.Log(controllers[currentPage+4].controllerName);
-        currentController = controllers[currentPage + 4];
+        Debug.Log(controllers[currentPage*5+4].controllerName);
+        currentController = controllers[currentPage*5 + 4];
         onControllerSelectedCommon(currentController);
     }
 
