@@ -30,7 +30,7 @@ public class SelectController : MonoBehaviour
     public GameObject button4;
     public GameObject button5;
     private List<GameObject> buttons;
-    public NeuroManager neuroManager;
+    //public NeuroManager neuroManager;
 
 
 
@@ -46,7 +46,7 @@ public class SelectController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(neuroManager.Devices.Count);
+        //Debug.Log(neuroManager.Devices.Count);
         controllersOnScreen = new List<Controller>();
         buttons = new List<GameObject>() {button1, button2, button3, button4, button5};
         Debug.Log("START");
@@ -119,10 +119,11 @@ public class SelectController : MonoBehaviour
 
     public void onBackPressed()
     {
-        foreach (var device in neuroManager.Devices)
-        {
-            neuroManager.DisconnectDevice(device);
-        }
+        //foreach (var device in neuroManager.Devices)
+        //{
+            //neuroManager.DisconnectDevice(device);
+        //}
+        DontDestroyOnLoad(GameObject.Find("NeuroManager"));
         SceneManager.LoadScene(0);
         
     }
@@ -243,10 +244,11 @@ public class SelectController : MonoBehaviour
 
     private void onControllerSelectedCommon(Controller controller)
     {
-        foreach (var device in neuroManager.Devices)
-        {
-            neuroManager.DisconnectDevice(device);
-        }
+        // foreach (var device in neuroManager.Devices)
+        //          {
+        //     neuroManager.DisconnectDevice(device);
+        // }
+        DontDestroyOnLoad(GameObject.Find("NeuroManager"));
         SceneManager.LoadScene(13);
     }
     

@@ -18,7 +18,7 @@ public class RemoteControl : MonoBehaviour
     public GameObject button5;
     public GameObject prevPage;
     public GameObject nextPage;
-    public NeuroManager neuroManager;
+    //public NeuroManager neuroManager;
 
     private List<GameObject> buttons;
     private List<Control> controlsOnScreen;
@@ -27,7 +27,7 @@ public class RemoteControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(neuroManager.Devices.Count);
+        //Debug.Log(neuroManager.Devices.Count);
         if (SelectController.currentController != null)
         {
             controller = SelectController.currentController;
@@ -114,6 +114,7 @@ public class RemoteControl : MonoBehaviour
         // {
         //     neuroManager.DisconnectDevice(device);
         // }
+        DontDestroyOnLoad(GameObject.Find("NeuroManager"));
         SceneManager.LoadScene(12);
     }
 

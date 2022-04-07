@@ -29,6 +29,7 @@ public class Menu : MonoBehaviour
 
     public void selectController()
     {
+        DontDestroyOnLoad(GameObject.Find("NeuroManager"));
         SceneManager.LoadScene(12);
     }
 }

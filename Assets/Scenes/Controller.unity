@@ -2284,7 +2284,7 @@ MonoBehaviour:
   button5: {fileID: 1914797594}
   prevPage: {fileID: 1191384482}
   nextPage: {fileID: 1711070524}
-  neuroManager: {fileID: 1412967294}
+  neuroManager: {fileID: 0}
 --- !u!1 &1191384482
 GameObject:
   m_ObjectHideFlags: 0
@@ -2470,81 +2470,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2784421284666592680, guid: f17746ea7d2bf7f4fb6f629bbe718802, type: 3}
   m_PrefabInstance: {fileID: 1310726347}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1412967293
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1412967295}
-  - component: {fileID: 1412967294}
-  m_Layer: 0
-  m_Name: NeuroManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1412967294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412967293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1448089713, guid: 6b6297cc7749f8640b6389fa7c92f21c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  simulateDevice: 1
-  simulateFocus: 1
-  onDeviceConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeviceDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeviceAvailable:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeviceUnavailable:
-    m_PersistentCalls:
-      m_Calls: []
-  onGlobalStatusEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  onDeviceEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Delegates: 00000000
-  trackingCamera: {fileID: 1179826709}
-  additionalTrackingCameras: []
-  scanBehaviour: 1
-  attemptReconnect: 1
-  autoConnect: 1
-  onScanningStarted:
-    m_PersistentCalls:
-      m_Calls: []
-  onScanningStopped:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &1412967295
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412967293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1481316571
 GameObject:
   m_ObjectHideFlags: 0
