@@ -19,11 +19,13 @@ public class Menu : MonoBehaviour
 
     public void calibrateDevice()
     {
-        SceneManager.LoadScene(1);
+        DontDestroyOnLoad(GameObject.Find("NeuroManager"));
+        SceneManager.LoadScene(14);
     }
 
     public void newController()
     {
+        DontDestroyOnLoad(GameObject.Find("NeuroManager"));
         SceneManager.LoadScene(11);
     }
 

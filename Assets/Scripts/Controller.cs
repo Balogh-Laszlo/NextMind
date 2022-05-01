@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Controller
 {
-    public string IFTTTKey;
+    public List<string> IFTTTKeys;
     public string controllerName;
     public int numberOfPages;
     public List<Control> controls;

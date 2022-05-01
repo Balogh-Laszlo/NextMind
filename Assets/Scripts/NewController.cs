@@ -11,6 +11,7 @@ public class NewController : MonoBehaviour
 {
     // Start is called before the first frame update
     public string key = "";
+    public List<string> keysForPages;
     public string baseURL = "https://maker.ifttt.com/trigger/";
     public string endURL = "/json/with/key/";
     public int numberOfPages = 1;
@@ -55,6 +56,7 @@ public class NewController : MonoBehaviour
         customEvents.Add(CustomEvent5);
 
         saveScript = GetComponent<SaveScript>();
+        keysForPages = new List<string>();
     }
 
     // Update is called once per frame
@@ -72,6 +74,7 @@ public class NewController : MonoBehaviour
         }
         else
         {
+            keysForPages.Add(key);
             IFTTTkeyCanvas.SetActive(false);
             Controller.SetActive(true);
         }
@@ -88,7 +91,9 @@ public class NewController : MonoBehaviour
     {
         numberOfPages++;
         saveButtonsData();
+        IFTTTkeyCanvas.SetActive(true);
         clearFields();
+        Controller.SetActive(false);
     }
 
     public void onSetupNextPressed()
@@ -131,6 +136,12 @@ public class NewController : MonoBehaviour
         {
             controllerName = ControllerName.text;
             saveScript.SaveData();
+            var target = GameObject.Find("NeuroManager");
+            if (target != null)
+            {
+                DontDestroyOnLoad(target);
+            }
+
             SceneManager.LoadScene(0);
             
         }

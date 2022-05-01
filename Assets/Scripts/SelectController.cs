@@ -37,7 +37,7 @@ public class SelectController : MonoBehaviour
     private void Awake()
     {
         Debug.Log("AWAKE");
-        loadPath = Application.persistentDataPath + "/myControllers2.save";
+        loadPath = Application.persistentDataPath + "/myControllers3.save";
         // loader = GetComponent<LoadScript>();
         // loader.LoadData();
         LoadData();

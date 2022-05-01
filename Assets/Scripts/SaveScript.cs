@@ -14,7 +14,7 @@ public class SaveScript : MonoBehaviour
     void Start()
     {
         newController = GetComponent<NewController>();
-        savePath = Application.persistentDataPath + "/myControllers2.save";
+        savePath = Application.persistentDataPath + "/myControllers3.save";
     }
 
     public void SaveData()
@@ -23,7 +23,7 @@ public class SaveScript : MonoBehaviour
         {
             controllerName = newController.controllerName,
             controls = newController.controls,
-            IFTTTKey = newController.key,
+            IFTTTKeys = newController.keysForPages,
             numberOfPages = newController.numberOfPages
         };
         var binaryFormatter = new BinaryFormatter();

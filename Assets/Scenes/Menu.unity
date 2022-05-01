@@ -430,8 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: -1448089713, guid: 6b6297cc7749f8640b6389fa7c92f21c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulateDevice: 1
-  simulateFocus: 1
+  simulateDevice: 0
+  simulateFocus: 0
   onDeviceConnected:
     m_PersistentCalls:
       m_Calls: []
