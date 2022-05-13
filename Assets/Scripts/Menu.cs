@@ -20,18 +20,18 @@ public class Menu : MonoBehaviour
     public void calibrateDevice()
     {
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
-        SceneManager.LoadScene(14);
+        SceneManager.LoadScene(15);
     }
 
     public void newController()
     {
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
-        SceneManager.LoadScene(11);
+        SceneManager.LoadScene(12);
     }
 
     public void selectController()
     {
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
-        SceneManager.LoadScene(12);
+        SceneManager.LoadScene(13);
     }
 }

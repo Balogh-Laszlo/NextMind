@@ -124,7 +124,7 @@ public class SelectController : MonoBehaviour
             //neuroManager.DisconnectDevice(device);
         //}
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         
     }
 
@@ -249,7 +249,7 @@ public class SelectController : MonoBehaviour
         //     neuroManager.DisconnectDevice(device);
         // }
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
-        SceneManager.LoadScene(13);
+        SceneManager.LoadScene(14);
     }
     
 }

@@ -128,7 +128,7 @@ public class RemoteControl : MonoBehaviour
 
     public void button1Pressed()
     {
-        Utils.ping(controlsOnScreen[currentPage * 5].CustomEvent,controller.IFTTTKeys[currentPage]);
+        Utils1.ping(controlsOnScreen[currentPage * 5].CustomEvent,controller.IFTTTKeys[currentPage]);
     }
     public void button2Pressed()
     {
@@ -138,19 +138,19 @@ public class RemoteControl : MonoBehaviour
         Debug.Log("num of controls:" + controlsOnScreen.Count);
         Debug.Log(controlsOnScreen[currentPage*5+1].CustomEvent);
 
-        Utils.ping(controlsOnScreen[currentPage * 5+1].CustomEvent,controller.IFTTTKeys[currentPage]);
+        Utils1.ping(controlsOnScreen[currentPage * 5+1].CustomEvent,controller.IFTTTKeys[currentPage]);
     }
     public void button3Pressed()
     {
-        Utils.ping(controlsOnScreen[currentPage * 5+2].CustomEvent,controller.IFTTTKeys[currentPage]);
+        Utils1.ping(controlsOnScreen[currentPage * 5+2].CustomEvent,controller.IFTTTKeys[currentPage]);
     }
     public void button4Pressed()
     {
-        Utils.ping(controlsOnScreen[currentPage * 5+3].CustomEvent,controller.IFTTTKeys[currentPage]);
+        Utils1.ping(controlsOnScreen[currentPage * 5+3].CustomEvent,controller.IFTTTKeys[currentPage]);
     }
     public void button5Pressed()
     {
-        Utils.ping(controlsOnScreen[currentPage * 5+4].CustomEvent,controller.IFTTTKeys[currentPage]);
+        Utils1.ping(controlsOnScreen[currentPage * 5+4].CustomEvent,controller.IFTTTKeys[currentPage]);
     }
 
     private void showButtons()

@@ -142,7 +142,7 @@ public class NewController : MonoBehaviour
                 DontDestroyOnLoad(target);
             }
 
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
             
         }
     }
