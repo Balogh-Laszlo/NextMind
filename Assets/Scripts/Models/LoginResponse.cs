@@ -11,6 +11,6 @@ namespace DefaultNamespace.Models
         [CanBeNull] public string UserName { get; set; }
         [CanBeNull] public string Token { get; set; }
         public int Code { get; set; }
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }
