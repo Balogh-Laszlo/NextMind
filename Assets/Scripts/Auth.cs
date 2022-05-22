@@ -8,6 +8,7 @@ using TMPro;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 
 public class Auth : MonoBehaviour
@@ -80,6 +81,7 @@ public class Auth : MonoBehaviour
                             errorMessage.SetActive(false);
                             api.Token = response.Token;
                             api.UserName = username;
+                            DontDestroyOnLoad(GameObject.Find("NeuroManager"));
                             SceneManager.LoadScene(1);
                         }
                         else
@@ -170,7 +172,7 @@ public class Auth : MonoBehaviour
                         registerObject.SetActive(false);
                         loginObject.SetActive(true);
                         regSuccessfulText.alpha = 1;
-                        StartCoroutine(FadeTextToZeroAlpha(3f, regSuccessfulText));
+                        StartCoroutine(Animations.FadeTextToZeroAlpha(3f, regSuccessfulText));
 
                     }
                     else
@@ -190,14 +192,5 @@ public class Auth : MonoBehaviour
 
     }
     
-    //from https://forum.unity.com/threads/fading-in-out-gui-text-with-c-solved.380822/
-    private IEnumerator FadeTextToZeroAlpha(float t, TMP_Text i)
-    {
-        i.color = new Color(i.color.r, i.color.g, i.color.b, 1);
-        while (i.color.a > 0.0f)
-        {
-            i.color = new Color(i.color.r, i.color.g, i.color.b, i.color.a - (Time.deltaTime / t));
-            yield return null;
-        }
-    }
+
 }

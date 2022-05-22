@@ -5,6 +5,8 @@ using NextMind.Calibration;
 using NextMind.Devices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Utils;
 
 public class Calibration : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class Calibration : MonoBehaviour
     public GameObject startButton;
 
     public TMP_Text score;
+
+    public GameObject tryAgainButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,7 @@ public class Calibration : MonoBehaviour
     {
         if (neuroManager.IsReady())
         {
+            tryAgainButton.SetActive(false);
             startButton.SetActive(false);
             neuroTags.SetActive(true);
             calibrationManager.StartCalibration();
@@ -45,5 +50,18 @@ public class Calibration : MonoBehaviour
     public void onCalibrationEnded(Device device, CalibrationResults.CalibrationGrade grade)
     {
         score.text = grade.ToString();
+        tryAgainButton.SetActive(true);
+
+    }
+
+    public void OnBackPressed()
+    {
+        DontDestroyOnLoad(GameObject.Find("NeuroManager"));
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnTryAgainPressed()
+    {
+        onStartClicked();
     }
 }

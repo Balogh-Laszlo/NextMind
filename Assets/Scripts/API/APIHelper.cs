@@ -14,7 +14,6 @@ namespace API
     public class APIHelper : IAPIHelper
     {
 
-
         public string Token { get; set; } = "";
         public string UserName { get; set; } = "";
         private static APIHelper _instance;
@@ -35,6 +34,14 @@ namespace API
         private APIHelper()
         {
         }
+        public IEnumerator GetRemoteControllers(Action<GetRemoteControllersResponse> result)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("Token", Token);
+            UnityWebRequest www = UnityWebRequest.Post(Constants.BackEndUrl + Constants.RemoteControllerUrl + "getControllers", form);
+            yield return www.SendWebRequest();
+            result(JsonConvert.DeserializeObject<GetRemoteControllersResponse>(www.downloadHandler.text));
+        }
         
         public IEnumerator LoginWithToken(string token, Action<LoginWithTokenResponse> result)
         {
@@ -54,7 +61,6 @@ namespace API
             form.AddField("ConfirmPassword", request.ConfirmPassword);
 
             UnityWebRequest www = UnityWebRequest.Post(Constants.BackEndUrl + Constants.AuthUrl + "register", form);
-
             yield return www.SendWebRequest();
             
             response(JsonConvert.DeserializeObject<RegisterResponse>(www.downloadHandler.text));
@@ -73,5 +79,6 @@ namespace API
 
             result(JsonConvert.DeserializeObject<LoginResponse>(www.downloadHandler.text));
         }
+        
     }
 }

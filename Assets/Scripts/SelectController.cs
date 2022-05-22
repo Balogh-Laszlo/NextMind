@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using API;
 using NextMind;
 using TMPro;
 using UnityEditor.Experimental.SceneManagement;
@@ -42,6 +43,10 @@ public class SelectController : MonoBehaviour
         // loader.LoadData();
         LoadData();
         Debug.Log("Data Loaded");
+        StartCoroutine(APIHelper.Instance.GetRemoteControllers((response) =>
+        {
+            Debug.Log("Response:" + response.Code);
+        }));
     }
 
     void Start()
