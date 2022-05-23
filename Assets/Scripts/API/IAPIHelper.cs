@@ -14,6 +14,7 @@ namespace API
         public IEnumerator LoginWithToken(string token, Action<LoginWithTokenResponse> result);
 
         public IEnumerator GetRemoteControllers(Action<GetRemoteControllersResponse> result);
+        public IEnumerator Ping(string customEvent, string key,Action<string> result);
         public string Token { get; set; }
         public string UserName { get; set; }
         

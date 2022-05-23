@@ -15,15 +15,7 @@ namespace DefaultNamespace
         private const string backendURL = "https://localhost:7053/api/";
         private const string authControllerURL = "Auth";
         
-        public static void ping(string customEvent, string IFTTTKey)
-        {
-            using (var wb = new WebClient())
-            {
-                string url = baseURL + customEvent + middelURL + IFTTTKey;
-                var response = wb.DownloadString(url);
-                Debug.Log(response);
-            }
-        }
+
 
         public static async Task<RegisterResponse> register(RegisterRequest request)
         {

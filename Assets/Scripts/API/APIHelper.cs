@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Net;
 using System.Threading.Tasks;
 using DefaultNamespace.Models;
 using Models;
@@ -33,6 +34,19 @@ namespace API
 
         private APIHelper()
         {
+        }
+        public IEnumerator Ping(string customEvent, string key, Action<string>  result)
+        {
+            string url = Constants.BaseURL + customEvent + Constants.MiddleURL + key;
+            WWWForm form = new WWWForm();
+            UnityWebRequest www = UnityWebRequest.Get(url);
+            yield return www.SendWebRequest();
+            result(www.downloadHandler.text);
+            // using (var wb = new WebClient())
+            // {
+            //     var response = wb.DownloadString(url);
+            //     Debug.Log(response);
+            // }
         }
         public IEnumerator GetRemoteControllers(Action<GetRemoteControllersResponse> result)
         {

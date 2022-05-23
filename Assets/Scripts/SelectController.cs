@@ -1,28 +1,15 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using API;
-using NextMind;
+using Models;
 using TMPro;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 // [RequireComponent(typeof(LoadScript))]
 public class SelectController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public List<Controller> controllers = null;
-    private List<Controller> controllersOnScreen;
-    private int currentPage = 0;
-
-    public static Controller currentController;
-    // public LoadScript loader;
-    private List<string> controllerNames;
-    public string loadPath;
+    //UI elements
     public GameObject nextPageMindButton;
     public GameObject prevPageButton;
     public GameObject button1;
@@ -30,104 +17,83 @@ public class SelectController : MonoBehaviour
     public GameObject button3;
     public GameObject button4;
     public GameObject button5;
+
+    //Data objects(backend)
+    private List<RemoteController> remoteControllers;
     private List<GameObject> buttons;
-    //public NeuroManager neuroManager;
-
-
-
-    private void Awake()
+    public static RemoteController selectedRemoteController;
+    private int currentPage = 0;
+    void Start()
     {
-        Debug.Log("AWAKE");
-        loadPath = Application.persistentDataPath + "/myControllers3.save";
-        // loader = GetComponent<LoadScript>();
-        // loader.LoadData();
-        LoadData();
-        Debug.Log("Data Loaded");
+        buttons = new List<GameObject>() {button1, button2, button3, button4, button5};
         StartCoroutine(APIHelper.Instance.GetRemoteControllers((response) =>
         {
             Debug.Log("Response:" + response.Code);
+            if (response.Code == 200)
+            {
+                remoteControllers = response.RemoteControllers;
+                Debug.Log("Remote controllers count " + remoteControllers.Count);
+                showControllers();
+            }
+            else
+            {
+                Debug.Log(response.Message);
+            }
         }));
+
+    }
+    private void showControllers()
+    {
+        currentPage = 0;
+        assignControllersToButtons(currentPage);
+        checkNavButtons();
     }
 
-    void Start()
+    private void assignControllersToButtons(int currentPage)
     {
-        //Debug.Log(neuroManager.Devices.Count);
-        controllersOnScreen = new List<Controller>();
-        buttons = new List<GameObject>() {button1, button2, button3, button4, button5};
-        Debug.Log("START");
-        Debug.Log(controllers.Count);
-        controllerNames = new List<string>();
-        for (int i = 0; i < controllers.Count; i++)
+        int buttonIndex = 0;
+        for (int i = currentPage * 5; i < currentPage * 5 + 5; ++i)
         {
-            controllerNames.Add(controllers[i].controllerName);
-        }
-
-        if (controllers.Count>5)
-        {
-            nextPageMindButton.SetActive(true);
-            for (int i = 0; i < 5; ++i)
+            if (remoteControllers.Count > i)
             {
-                controllersOnScreen.Add(controllers[i]);
-                TMP_Text temp = buttons[i].GetComponentInChildren<TMP_Text>();
-                if (temp != null)
+                buttons[buttonIndex].SetActive(true);
+                var text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
+                if (text != null)
                 {
-                    temp.text = controllers[i].controllerName;
+                    text.text = remoteControllers[i].Name;
                 }
             }
-        }
-        else
-        {
-            nextPageMindButton.SetActive(false);
-            controllersOnScreen = controllers;
-            for (int i = 0; i < controllers.Count; i++)
+            else
             {
-                
-                TMP_Text temp = buttons[i].GetComponentInChildren<TMP_Text>();
-                if (temp != null)
-                {
-                    temp.text = controllers[i].controllerName;
-                }
+                buttons[buttonIndex].SetActive(false);
             }
 
-            for (int i = controllers.Count; i < 5; ++i)
-            {
-                buttons[i].SetActive(false);
-            }
+            buttonIndex++;
         }
-        Debug.Log("Controllers on screen: "+controllersOnScreen.Count);
+    }
+
+    private void checkNavButtons()
+    {
         if (currentPage == 0)
         {
             prevPageButton.SetActive(false);
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void LoadData()
-    {
-        if (File.Exists(loadPath))
+        else
         {
-            Save save;
-            var binaryFormatter = new BinaryFormatter();
-            using (var fileStream = File.Open(loadPath, FileMode.Open))
-            {
-                save = (Save)binaryFormatter.Deserialize(fileStream);
-            }
+            prevPageButton.SetActive(true);
+        }
 
-            controllers = save.controllers;
+        if ((currentPage * 5 + 5) >= remoteControllers.Count)
+        {
+            nextPageMindButton.SetActive(false);
+        }
+        else
+        {
+            nextPageMindButton.SetActive(true);
         }
     }
-
     public void onBackPressed()
     {
-        //foreach (var device in neuroManager.Devices)
-        //{
-            //neuroManager.DisconnectDevice(device);
-        //}
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
         SceneManager.LoadScene(1);
         
@@ -135,124 +101,46 @@ public class SelectController : MonoBehaviour
 
     public void nextPage()
     {
-        currentPage += 1;
-        if (prevPageButton.activeSelf == false)
-        {
-            prevPageButton.SetActive(true);
-        }
-        if (currentPage >= controllers.Count / 5)
-        {
-            nextPageMindButton.SetActive(false);
-        }
-        controllersOnScreen.Clear();
-        int temp = currentPage * 5;
-        int buttonIndex = 0;
-        for (int i = temp; i < temp+5; i++)
-        {
-            if (i < controllers.Count)
-            {
-                if (buttons[buttonIndex].activeSelf == false)
-                {
-                    buttons[buttonIndex].SetActive(true);
-                }
-                controllersOnScreen.Add(controllers[i]);
-                TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
-                if (text != null)
-                {
-                    text.text = controllers[i].controllerName;
-                }
-            }
-            else
-            {
-                buttons[buttonIndex].SetActive(false);
-            }
-
-            buttonIndex++;
-
-        }
+        currentPage++;
+        assignControllersToButtons(currentPage);
+        checkNavButtons();
     }
 
     public void prevPage()
     {
         currentPage -= 1;
-        if (nextPageMindButton.activeSelf == false)
-        {
-            nextPageMindButton.SetActive(true);
-        }
-
-        if (currentPage == 0)
-        {
-            prevPageButton.SetActive(false);
-        }
-        controllersOnScreen.Clear();
-        int temp = currentPage * 5;
-        int buttonIndex = 0;
-        for (int i = temp; i < temp+5; i++)
-        {
-            if (i < controllers.Count)
-            {
-                controllersOnScreen.Add(controllers[i]);
-                if (buttons[buttonIndex].activeSelf == false)
-                {
-                    buttons[buttonIndex].SetActive(true);
-                }
-                TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
-                if (text != null)
-                {
-                    text.text = controllers[i].controllerName;
-                }
-            }
-            else
-            {
-                buttons[buttonIndex].SetActive(false);
-            }
-
-            buttonIndex++;
-
-        }
+        assignControllersToButtons(currentPage);
+        checkNavButtons();
     }
 
     public void onButton1Pressed()
     {
-        Debug.Log(controllers[currentPage*5+0].controllerName);
-        currentController = controllers[currentPage*5];
-        onControllerSelectedCommon(currentController);
+        onControllerSelectedCommon(currentPage*5+0);
     }
 
     public void onButton2Pressed()
     {
-        Debug.Log(controllers[currentPage*5+1].controllerName);
-        currentController = controllers[currentPage*5 + 1];
-        onControllerSelectedCommon(currentController);
+        onControllerSelectedCommon(currentPage*5+1);
     }
 
     public void onButton3Pressed()
     {
-        Debug.Log(controllers[currentPage*5+2].controllerName);
-        currentController = controllers[currentPage*5 + 2];
-        onControllerSelectedCommon(currentController);
+        onControllerSelectedCommon(currentPage*5+2);
     }
 
     public void onButton4Pressed()
     {
-        Debug.Log(controllers[currentPage*5+3].controllerName);
-        currentController = controllers[currentPage*5 + 3];
-        onControllerSelectedCommon(currentController);
+        onControllerSelectedCommon(currentPage*5+3);
     }
 
     public void onButton5Pressed()
     {
-        Debug.Log(controllers[currentPage*5+4].controllerName);
-        currentController = controllers[currentPage*5 + 4];
-        onControllerSelectedCommon(currentController);
+        onControllerSelectedCommon(currentPage*5+4);
     }
 
-    private void onControllerSelectedCommon(Controller controller)
+    private void onControllerSelectedCommon(int index)
     {
-        // foreach (var device in neuroManager.Devices)
-        //          {
-        //     neuroManager.DisconnectDevice(device);
-        // }
+        selectedRemoteController = remoteControllers[index];
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
         SceneManager.LoadScene(14);
     }

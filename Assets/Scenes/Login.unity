@@ -1596,7 +1596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simulateDevice: 1
-  simulateFocus: 0
+  simulateFocus: 1
   onDeviceConnected:
     m_PersistentCalls:
       m_Calls: []

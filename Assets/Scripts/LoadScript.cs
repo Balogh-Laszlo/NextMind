@@ -28,8 +28,7 @@ public class LoadScript : MonoBehaviour
             {
                 save = (Save)binaryFormatter.Deserialize(fileStream);
             }
-
-            SelectController.controllers = save.controllers;
+            
         }
     }
 }

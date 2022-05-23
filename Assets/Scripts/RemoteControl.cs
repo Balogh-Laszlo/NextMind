@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using API;
 using DefaultNamespace;
+using Models;
 using NextMind;
 using TMPro;
 using UnityEngine;
@@ -11,6 +13,7 @@ using Debug = UnityEngine.Debug;
 
 public class RemoteControl : MonoBehaviour
 {
+    //UI elements
     public TMP_Text name;
     public Controller controller;
     public GameObject button1;
@@ -20,177 +23,126 @@ public class RemoteControl : MonoBehaviour
     public GameObject button5;
     public GameObject prevPage;
     public GameObject nextPage;
-    //public NeuroManager neuroManager;
 
     private List<GameObject> buttons;
-    private List<Control> controlsOnScreen;
-
-    private int currentPage = 0;
+    private int currentPageIndex = 0;
+    private Page currentPage;
+    
     // Start is called before the first frame update
     void Start()
     {
-        //Debug.Log(neuroManager.Devices.Count);
-        if (SelectController.currentController != null)
+        buttons = new List<GameObject>();
+        buttons.Add(button1);
+        buttons.Add(button2);
+        buttons.Add(button3);
+        buttons.Add(button4);
+        buttons.Add(button5);
+        name.text = SelectController.selectedRemoteController.Name;
+        //sort the pages by index
+        SelectController.selectedRemoteController.Pages.Sort((page1, page2)=> page1.Index > page2.Index? 1 : 0);
+        currentPage = SelectController.selectedRemoteController.Pages[0];
+        Debug.Log(currentPage.Index);
+        checkNavButtons();
+        assignButtons();
+
+    }
+    
+
+    private void assignButtons()
+    {
+        for (int i = 0; i < 5; ++i)
         {
-
-            controller = SelectController.currentController;
-            name.text = controller.controllerName;
-            Debug.Log("number of keys: "+controller.IFTTTKeys.Count);
-            for (int i = 0; i < controller.IFTTTKeys.Count; i++)
+            if (currentPage.Controls.Count > i)
             {
-                Debug.Log(controller.IFTTTKeys[i]);
+                buttons[i].SetActive(true);
+                var text = buttons[i].GetComponentInChildren<TMP_Text>();
+                text.text = currentPage.Controls[i].Name;
             }
-            buttons = new List<GameObject>();
-            buttons.Add(button1);
-            buttons.Add(button2);
-            buttons.Add(button3);
-            buttons.Add(button4);
-            buttons.Add(button5);
-            controlsOnScreen = new List<Control>();
-            int temp = currentPage * 5;
-            int buttonIndex = 0;
-            prevPage.SetActive(false);
-            if (controller.numberOfPages <= 1)
+            else
             {
-                nextPage.SetActive(false);
+                buttons[i].SetActive(false);
             }
-            for (int i = temp; i < temp +5; i++)
-            {
-                if (i < controller.controls.Count)
-                {
-                    TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
-                    if (text != null)
-                    {
-                        if (controller.controls[i] != null && controller.controls[i].ControlName != null)
-                        {
-                            text.text = controller.controls[i].ControlName;
-                            controlsOnScreen.Add(controller.controls[i]);
-                        }
-                        else
-                        {
-                            buttons[buttonIndex].SetActive(false);
-                            controlsOnScreen.Add(null);
-                        }
-                        
-                    }
-                }
-                else
-                {
-                    
-                    buttons[buttonIndex].SetActive(false);
-                }
-
-                buttonIndex++;
-            }
+            
         }
     }
 
-    public void onNextPressed()
+    private void checkNavButtons()
     {
-        currentPage++;
-        if (currentPage == controller.numberOfPages-1)
+        if (currentPageIndex == 0)
         {
-            nextPage.SetActive(false);
+            prevPage.SetActive(false);
         }
-
-        if (prevPage.activeSelf == false)
+        else
         {
             prevPage.SetActive(true);
         }
-        showButtons();
-        
+
+        if (currentPageIndex < SelectController.selectedRemoteController.Pages.Count-1)
+        {
+            nextPage.SetActive(true);
+        }
+        else
+        {
+            nextPage.SetActive(false);
+        }
+    }
+    public void onNextPressed()
+    {
+        currentPageIndex++;
+        currentPage = SelectController.selectedRemoteController.Pages[currentPageIndex];
+        checkNavButtons();
+        assignButtons();
     }
 
     public void onPrevPressed()
     {
-        currentPage--;
-        if (currentPage == 0)
-        {
-            prevPage.SetActive(false);
-        }
-
-        if (nextPage.activeSelf == false)
-        {
-            nextPage.SetActive(true);
-        }
-        showButtons();
+        currentPageIndex--;
+        currentPage = SelectController.selectedRemoteController.Pages[currentPageIndex];
+        checkNavButtons();
+        assignButtons();
     }
     
     public void onBackPressed()
     {
-        // foreach (var device in neuroManager.Devices)
-        // {
-        //     neuroManager.DisconnectDevice(device);
-        // }
         DontDestroyOnLoad(GameObject.Find("NeuroManager"));
-        SceneManager.LoadScene(12);
+        SceneManager.LoadScene(13);
     }
 
     public void button1Pressed()
     {
-        Utils1.ping(controlsOnScreen[currentPage * 5].CustomEvent,controller.IFTTTKeys[currentPage]);
+        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[0].URl, currentPage.Controls[0].IFTTTKey,(result) =>
+        {
+            Debug.Log(result);
+        }));
+
     }
     public void button2Pressed()
     {
-        Debug.Log("current page: " + currentPage);
-        Debug.Log("num of keys:" + controller.IFTTTKeys.Count);
-        Debug.Log(controller.IFTTTKeys[currentPage]);
-        Debug.Log("num of controls:" + controlsOnScreen.Count);
-        Debug.Log(controlsOnScreen[currentPage*5+1].CustomEvent);
-
-        Utils1.ping(controlsOnScreen[currentPage * 5+1].CustomEvent,controller.IFTTTKeys[currentPage]);
+        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[1].URl, currentPage.Controls[1].IFTTTKey,(result) =>
+        {
+            Debug.Log(result);
+        }));
     }
     public void button3Pressed()
     {
-        Utils1.ping(controlsOnScreen[currentPage * 5+2].CustomEvent,controller.IFTTTKeys[currentPage]);
+        // APIHelper.Instance.Ping(currentPage.Controls[2].URl, currentPage.Controls[2].IFTTTKey);
+        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[2].URl, currentPage.Controls[2].IFTTTKey,(result) =>
+        {
+            Debug.Log(result);
+        }));
     }
     public void button4Pressed()
     {
-        Utils1.ping(controlsOnScreen[currentPage * 5+3].CustomEvent,controller.IFTTTKeys[currentPage]);
+        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[3].URl, currentPage.Controls[3].IFTTTKey,(result) =>
+        {
+            Debug.Log(result);
+        }));
     }
     public void button5Pressed()
     {
-        Utils1.ping(controlsOnScreen[currentPage * 5+4].CustomEvent,controller.IFTTTKeys[currentPage]);
-    }
-
-    private void showButtons()
-    {
-        int temp = currentPage * 5;
-        int buttonIndex = 0;
-        controlsOnScreen.Clear();
-        for (int i = temp; i < temp+5; i++)
+        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[4].URl, currentPage.Controls[4].IFTTTKey,(result) =>
         {
-            if (i < controller.controls.Count)
-            {
-                
-                TMP_Text text = buttons[buttonIndex].GetComponentInChildren<TMP_Text>();
-                if (text != null)
-                {
-                    if (controller.controls[i] != null && controller.controls[i].ControlName != null)
-                    {
-                        if (buttons[buttonIndex].activeSelf == false)
-                        {
-                            buttons[buttonIndex].SetActive(true);
-                        }
-                        text.text = controller.controls[i].ControlName;
-                        controlsOnScreen.Add(controller.controls[i]);
-                    }
-                    else
-                    {
-                        buttons[buttonIndex].SetActive(false);
-                        controlsOnScreen.Add(null);
-                    }
-                        
-                }
-            }
-            else
-            {
-                controlsOnScreen.Add(null);  
-                buttons[buttonIndex].SetActive(false);
-            }
-
-            buttonIndex++;
-        
-        }
+            Debug.Log(result);
+        }));
     }
 }
