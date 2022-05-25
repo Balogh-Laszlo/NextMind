@@ -15,7 +15,6 @@ public class RemoteControl : MonoBehaviour
 {
     //UI elements
     public TMP_Text name;
-    public Controller controller;
     public GameObject button1;
     public GameObject button2;
     public GameObject button3;
@@ -108,41 +107,12 @@ public class RemoteControl : MonoBehaviour
         SceneManager.LoadScene(13);
     }
 
-    public void button1Pressed()
+    public void OnButtonPressed(int i)
     {
-        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[0].URl, currentPage.Controls[0].IFTTTKey,(result) =>
+        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[i].URl, currentPage.Controls[i].IFTTTKey.iftttKey,(result) =>
         {
             Debug.Log(result);
         }));
+    }
 
-    }
-    public void button2Pressed()
-    {
-        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[1].URl, currentPage.Controls[1].IFTTTKey,(result) =>
-        {
-            Debug.Log(result);
-        }));
-    }
-    public void button3Pressed()
-    {
-        // APIHelper.Instance.Ping(currentPage.Controls[2].URl, currentPage.Controls[2].IFTTTKey);
-        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[2].URl, currentPage.Controls[2].IFTTTKey,(result) =>
-        {
-            Debug.Log(result);
-        }));
-    }
-    public void button4Pressed()
-    {
-        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[3].URl, currentPage.Controls[3].IFTTTKey,(result) =>
-        {
-            Debug.Log(result);
-        }));
-    }
-    public void button5Pressed()
-    {
-        StartCoroutine(APIHelper.Instance.Ping(currentPage.Controls[4].URl, currentPage.Controls[4].IFTTTKey,(result) =>
-        {
-            Debug.Log(result);
-        }));
-    }
 }

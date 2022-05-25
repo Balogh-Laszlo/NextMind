@@ -15,6 +15,7 @@ namespace API
     public class APIHelper : IAPIHelper
     {
 
+
         public string Token { get; set; } = "";
         public string UserName { get; set; } = "";
         private static APIHelper _instance;
@@ -35,6 +36,7 @@ namespace API
         private APIHelper()
         {
         }
+
         public IEnumerator Ping(string customEvent, string key, Action<string>  result)
         {
             string url = Constants.BaseURL + customEvent + Constants.MiddleURL + key;
@@ -47,6 +49,41 @@ namespace API
             //     var response = wb.DownloadString(url);
             //     Debug.Log(response);
             // }
+        }
+        public IEnumerator AddController(AddControllerRequest request, Action<AddControllerResponse> response)
+        {
+            Debug.Log("ADD CONTROLLER");
+            var req = new UnityWebRequest(Constants.BackEndUrl + Constants.RemoteControllerUrl + "addController", "POST");
+            string json = JsonConvert.SerializeObject(request);
+            Debug.Log(json);
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
+            req.uploadHandler = (UploadHandler) new UploadHandlerRaw(jsonToSend);
+            req.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            req.SetRequestHeader("Content-Type", "application/json");
+            yield return req.SendWebRequest();
+            Debug.Log(req.downloadHandler.text);
+            response(JsonConvert.DeserializeObject<AddControllerResponse>(req.downloadHandler.text));
+
+        }
+        public IEnumerator GetControls(string token, Action<GetControlsResponse> result)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("Token", Token);
+            UnityWebRequest www = UnityWebRequest.Post(Constants.BackEndUrl+ Constants.ControlUrl + "getControls", form);
+            yield return www.SendWebRequest();
+            if (www.isDone)
+            {
+                Debug.Log(www.error);
+            }
+            result(JsonConvert.DeserializeObject<GetControlsResponse>(www.downloadHandler.text));
+        }
+        public IEnumerator GetKeys(GetKeysRequest request, Action<GetKeysResponse> result)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("Token", request.Token);
+            UnityWebRequest www = UnityWebRequest.Post(Constants.BackEndUrl+Constants.IftttKeyURL + "getKeys", form);
+            yield return www.SendWebRequest();
+            result(JsonConvert.DeserializeObject<GetKeysResponse>(www.downloadHandler.text));
         }
         public IEnumerator GetRemoteControllers(Action<GetRemoteControllersResponse> result)
         {

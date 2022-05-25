@@ -1,11 +1,13 @@
-﻿namespace Models
-{
+﻿using System;
 
-    public class ControlDB
+namespace Models
+{
+    [Serializable]
+    public class ControlToClient
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string URl { get; set; }
-        public string IFTTTKey { get; set; }
+        public Key IFTTTKey { get; set; }
     }
 }

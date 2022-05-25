@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace Models
 {
     [Serializable]
-    public class GetRemoteControllersResponse
+    public class GetKeysResponse
     {
         public int Code { get; set; }
         public string Message { get; set; }
-        public List<RemoteController> RemoteControllers { get; set; } = new List<RemoteController>();
+        [CanBeNull] public List<Key> Keys { get; set; }
     }
 }

@@ -258,12 +258,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1179826711}
         m_TargetAssemblyTypeName: RemoteControl, Assembly-CSharp
-        m_MethodName: button2Pressed
-        m_Mode: 1
+        m_MethodName: OnButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1750,12 +1750,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1179826711}
         m_TargetAssemblyTypeName: RemoteControl, Assembly-CSharp
-        m_MethodName: button3Pressed
-        m_Mode: 1
+        m_MethodName: OnButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2272,11 +2272,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: {fileID: 1669838149}
-  controller:
-    IFTTTKeys: []
-    controllerName: 
-    numberOfPages: 0
-    controls: []
   button1: {fileID: 1653277829}
   button2: {fileID: 1957868041}
   button3: {fileID: 8378030}
@@ -3321,12 +3316,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1179826711}
         m_TargetAssemblyTypeName: RemoteControl, Assembly-CSharp
-        m_MethodName: button5Pressed
-        m_Mode: 1
+        m_MethodName: OnButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3656,12 +3651,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1179826711}
         m_TargetAssemblyTypeName: RemoteControl, Assembly-CSharp
-        m_MethodName: button4Pressed
-        m_Mode: 1
+        m_MethodName: OnButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3808,8 +3803,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1179826711}
         m_TargetAssemblyTypeName: RemoteControl, Assembly-CSharp
-        m_MethodName: button1Pressed
-        m_Mode: 1
+        m_MethodName: OnButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

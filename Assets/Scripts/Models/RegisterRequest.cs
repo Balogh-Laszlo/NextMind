@@ -1,6 +1,8 @@
-﻿namespace DefaultNamespace.Models
-{
+﻿using System;
 
+namespace DefaultNamespace.Models
+{
+    [Serializable]
     public class RegisterRequest
     {
         public string UserName { get; set; }

@@ -15,6 +15,9 @@ namespace API
 
         public IEnumerator GetRemoteControllers(Action<GetRemoteControllersResponse> result);
         public IEnumerator Ping(string customEvent, string key,Action<string> result);
+        public IEnumerator GetKeys(GetKeysRequest request, Action<GetKeysResponse> result);
+        public IEnumerator GetControls(string token, Action<GetControlsResponse> result);
+        public IEnumerator AddController(AddControllerRequest request, Action<AddControllerResponse> response);
         public string Token { get; set; }
         public string UserName { get; set; }
         
